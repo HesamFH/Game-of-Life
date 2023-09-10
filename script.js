@@ -50,17 +50,24 @@ function checkNeighbors(x, y) {
 }
 
 function evolve() {
+  // Copying the current world
+  let world_copy = [];
+  for (let i = 0; i < worldHeight; i++) {
+    world_copy[i] = [...world[i]];
+  }
+
   for (let y = 0; y < worldHeight; y++) {
     for (let x = 0; x < worldWidth; x++) {
       if (checkNeighbors(x, y) > 3) {
-        world[y][x] = 0;
+        world_copy[y][x] = 0;
       } else if (checkNeighbors(x, y) == 3) {
-        world[y][x] = 1;
+        world_copy[y][x] = 1;
       } else if (checkNeighbors(x, y) < 2) {
-        world[y][x] = 0;
+        world_copy[y][x] = 0;
       }
     }
   }
+  world = world_copy;
 }
 
 function gameLoop() {
